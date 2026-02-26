@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Washoe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" id="top">
+      <div class="container header__inner">
+        <div class="logo">Washoe</div>
+        <nav class="site-nav" aria-label="Primary">
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-menu">
+            <svg class="menu-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="6" width="18" height="2" rx="1"></rect>
+              <rect x="3" y="11" width="18" height="2" rx="1"></rect>
+              <rect x="3" y="16" width="18" height="2" rx="1"></rect>
+            </svg>
+            <span class="menu-toggle__text">Menu</span>
+          </button>
+          <ul class="menu" id="primary-menu">
+            <li class="menu__item"><a class="menu__link is-active" href="#top">Home</a></li>
+            <li class="menu__item"><a class="menu__link" href="#biography">Biography</a></li>
+            <li class="menu__item"><a class="menu__link" href="#linguistics">Animal Linguistics</a></li>
+            <li class="menu__item"><a class="menu__link" href="#ethics">Animal Ethics</a></li>
+            <li class="menu__item"><a class="menu__link" href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero__inner">
+          <div class="hero__media reveal">
+            <img class="hero__image" src="./3.png" alt="Washoe the chimpanzee" loading="eager" />
+          </div>
+          <div class="hero__content reveal">
+            <h1 id="hero-title">One famous chimpanzee</h1>
+          </div>
+        </div>
+      </section>
+
+      <section class="quote reveal" aria-labelledby="quote-title">
+        <div class="container quote__inner">
+          <h2 class="sr-only" id="quote-title">Quote</h2>
+          <blockquote>
+            “Washoe has opened a window into the cognitive workings of a chimpanzee’s mind.”
+            <span class="quote__author">—<em>Jane Goodall</em></span>
+          </blockquote>
+        </div>
+      </section>
+
+      <section class="explore" id="biography" aria-labelledby="explore-title">
+        <div class="container">
+          <h2 id="explore-title" class="section-title">Explore Washoe’s Life</h2>
+          <div class="cards">
+            <article class="card reveal">
+              <div class="card__media">
+                <img src="./2.jpg" alt="Washoe portrait" loading="lazy" />
+              </div>
+              <h3 class="card__title">About Washoe</h3>
+              <p class="card__text">Washoe learned to eat with silverware, dress herself, read magazines, drink wine, and she learned some ASL.</p>
+            </article>
+            <article class="card reveal" id="linguistics">
+              <div class="card__media">
+                <img src="./1.jpg" alt="Chimpanzee communication" loading="lazy" />
+              </div>
+              <h3 class="card__title">Animal Linguistics</h3>
+              <p class="card__text">The fascinating world of how animals communicate with sounds, gestures, and other signals.</p>
+            </article>
+            <article class="card reveal" id="ethics">
+              <div class="card__media">
+                <img src="./4.jpg" alt="Animal ethics research" loading="lazy" />
+              </div>
+              <h3 class="card__title">Animal Ethics</h3>
+              <p class="card__text">Explore the concept of nonhuman personhood and human exceptionalism.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" aria-label="Mailing list">
+        <div class="container cta__inner">
+          <button class="cta__button" type="button" id="mailing-button">Join Our Mailing List</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <div class="container">
+        <p>© 2024 Washoe International</p>
+      </div>
+    </footer>
+
+    <div class="modal" id="mailing-modal" role="dialog" aria-modal="true" aria-labelledby="mailing-title" hidden>
+      <div class="modal__overlay" data-close="true"></div>
+      <div class="modal__panel" role="document">
+        <button class="modal__close" type="button" data-close="true" aria-label="Close mailing list">×</button>
+        <h2 id="mailing-title">Join Our Mailing List</h2>
+        <p class="modal__subtitle">Get updates about Washoe research and events.</p>
+        <form class="mailing-form" novalidate>
+          <label class="mailing-form__label" for="email">Email</label>
+          <input class="mailing-form__input" type="email" id="email" name="email" placeholder="you@example.com" required />
+          <button class="mailing-form__button" type="submit">Submit</button>
+          <p class="mailing-form__message" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const menuToggle = document.querySelector(".menu-toggle");
+      const primaryMenu = document.getElementById("primary-menu");
+      const nav = document.querySelector(".site-nav");
+      const mailingButton = document.getElementById("mailing-button");
+      const modal = document.getElementById("mailing-modal");
+      const modalCloseTargets = modal.querySelectorAll("[data-close]");
+      const mailingForm = document.querySelector(".mailing-form");
+      const emailInput = document.getElementById("email");
+      const message = document.querySelector(".mailing-form__message");
+      const revealItems = document.querySelectorAll(".reveal");
+
+      const toggleMenu = () => {
+        const isOpen = nav.classList.toggle("menu--open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      };
+
+      menuToggle.addEventListener("click", toggleMenu);
+
+      primaryMenu.addEventListener("click", (event) => {
+        if (event.target.matches("a")) {
+          nav.classList.remove("menu--open");
+          menuToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      const openModal = () => {
+        modal.hidden = false;
+        document.body.classList.add("no-scroll");
+        emailInput.focus();
+      };
+
+      const closeModal = () => {
+        modal.hidden = true;
+        document.body.classList.remove("no-scroll");
+        message.textContent = "";
+        mailingForm.reset();
+      };
+
+      mailingButton.addEventListener("click", openModal);
+      modalCloseTargets.forEach((button) => button.addEventListener("click", closeModal));
+
+      mailingForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (!emailInput.value.trim()) {
+          message.textContent = "Please enter your email.";
+          return;
+        }
+        if (!emailInput.checkValidity()) {
+          message.textContent = "Please enter a valid email address.";
+          return;
+        }
+        message.textContent = "Thanks for joining the mailing list!";
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
+
+      revealItems.forEach((item) => observer.observe(item));
+    </script>
+  </body>
+</html>
